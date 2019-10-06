@@ -7,24 +7,22 @@ int dis[LIM][LIM];
 int grid[LIM][LIM];
 int dr[]={-1,+1,0,0};
 int dc[]={0,0,-1,+1};
-void bfs(int N,int M)
+void bfs(int n,int m)
 {
-    dis[0][0]=0;
+    dis[1][1]=0;
     queue<pi>q;
-    q.push(pi(0,0));
+    q.push(pi(1,1));
     while(!q.empty())
     {
-        pi u=q.front;
-        q.pop();
+        pi u=q.front();
         int ur=u.first;
         int uc=u.second;
+        q.pop();
         for(int i=0;i<4;i++)
         {
-            vr=ur+dr[i];
-            vc=uc+dc[i];
-            if(vr<0||vr>=N||vc<0||vc>=M)
-                continue;
-            if(dis[ur][uc]+1<dis[vr][vc])
+            int vr=ur+dr[i];
+            int vc=uc+dc[i];
+            if(dis[vr][vc]==-1&&vr>=1&&vr<=n&&vc>=1&&vc<=m)
             {
                 dis[vr][vc]=dis[ur][uc]+1;
                 q.push(pi(vr,vc));
@@ -36,13 +34,16 @@ int main()
 {
     int t;
     cin>>t;
-    for(int i=1;i<=t;i++)
+    int n,m;
+    for(int k=1;k<=t;k++)
     {
-        for(int i=0;i<n;i++)
+        cin>>n>>m;
+        for(int i=1;i<=n;i++)
         {
-            for(int j=0;j<m;j++)
-                dis[i][j]=MAX;
+            for(int j=1;j<=m;j++)
+                dis[i][j]=-1;
         }
-        bfs(8,8);
+        bfs(n,m);
+        cout<<dis[n][m]<<endl;
     }
 }
